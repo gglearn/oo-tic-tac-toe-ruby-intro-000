@@ -10,6 +10,10 @@ class TicTacToe
     [2,5,8]  # Right column
   ]
 
+  def initialize
+    @board = Array.new(9, " ")
+  end
+
   def play(board)
     until over?(board)
       turn(board)
