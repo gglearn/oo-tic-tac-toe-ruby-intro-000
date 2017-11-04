@@ -14,13 +14,13 @@ class TicTacToe
     @board = Array.new(9, " ")
   end
 
-  def play(board)
-    until over?(board)
-      turn(board)
+  def play
+    until over?
+      turn
     end
-    if won?(board)
-      puts "Congratulations #{winner(board)}!"
-    elsif draw?(board)
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
       puts "Cat's Game!"
     end
   end
@@ -41,29 +41,21 @@ class TicTacToe
     @board[index] = player
   end
 
-  def position_taken?(board, index)
-    # puts "board #{board}"
-    # puts "index (position_taken) #{index}"
-    !(board[index].nil? || board[index] == " ")
+  def position_taken?(index)
+    !(@board[index].nil? || @board[index] == " ")
   end
 
-  def valid_move?(board, index)
-    # puts "index (valid_move) #{index.to_i}"
-    index.to_i.between?(0,8) && !position_taken?(board, index)
-
-    # if index.between?(0,8)
-    #  if !position_taken?(board, index)
-    #    true
-    #  end
+  def valid_move?(index)
+    index.to_i.between?(0,8) && !position_taken?(@board, index)
   end
 
-  def turn(board)
+  def turn
     puts "Please enter 1-9:"
     input = gets.strip
     index = input_to_index(input)
-    if valid_move?(board, index)
-      move(board, index, current_player(board))
-      display_board(board)
+    if valid_move?(index)
+      move(index, current_player(board))
+      display_board
     else
       turn(board)
     end
